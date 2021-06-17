@@ -1,0 +1,25 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+.board {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.grid {
+  width: 600px;
+  height: 450px;
+  outline: 5px solid black;
+}
+
+.grid img {
+  width: 25%;
+  object-fit: cover;
+  /* border-top-right-radius: 5px;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.103); */
+}
