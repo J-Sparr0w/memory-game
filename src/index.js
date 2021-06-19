@@ -54,39 +54,41 @@ document.addEventListener('DOMContentLoaded', () => {
     ]
 
 
-    cards.sort(()=> 0.5-Math.random())
+    cards.sort(() => 0.5 - Math.random())
+    
     const grid = document.querySelector('.grid')
     let chosenCard =[]
     let chosenCardIds = []
     const cardsWon = []
     const resultDisplay = document.querySelector('#result')
 
+   
+
     const createBoard = () => {
-        for (let i = 0; i < cards.length; i++)
-            {
-        const card = document.createElement('img')
+        for (let i = 0; i < cards.length; i++) {
+            const card = document.createElement('img')
             card.setAttribute('src', 'src/images/backside.png')
-            card.setAttribute('data-id', i)
-            
+            card.setAttribute('data-id', i)       
             card.addEventListener('click', flipCard)
             grid.appendChild(card)
             
         }
 
     }
-    
+
+   
     function flipCard() {
         let cardId = this.getAttribute('data-id')
-        chosenCard.push(cards[cardId])
+       chosenCard.push(cards[cardId])
         chosenCardIds.push(cardId)
-        this.setAttribute('src', cards[cardId].imgSrc)
+     this.setAttribute('src', cards[cardId].imgSrc)
+        console.log(chosenCard)
         
         if (chosenCard.length === 2)
         {
-            setTimeout(checkForMatch, 250)
-            console.log(chosenCard)
-
-            }
+      setTimeout(  checkForMatch,500)    
+            
+        }
     }
 
     function checkForMatch() {
@@ -95,32 +97,36 @@ document.addEventListener('DOMContentLoaded', () => {
         const secondChoice = chosenCardIds[1]
         if (firstChoice == secondChoice)
         {
-            alert('You clicked the same one twice')
+            alert('you chose the same one')
             card_images[firstChoice].setAttribute('src', 'src/images/backside.png')
             
         }
         else if (chosenCard[0].name=== chosenCard[1].name)
         {
-            alert('You found a match')
-
             card_images[firstChoice].setAttribute('src', 'src/images/white.png')
             card_images[secondChoice].setAttribute('src', 'src/images/white.png')
-            card_images[firstChoice].removeEventListener('click',flipCard)
-            card_images[secondChoice].removeEventListener('click',flipCard)
+            setTimeout(()=>{
+                card_images[firstChoice].removeEventListener('click', flipCard)
+                card_images[secondChoice].removeEventListener('click', flipCard)
+            },300)
             cardsWon.push(chosenCard)
-            
-
         }
         else {
-          setTimeout(()=>{  card_images[firstChoice].setAttribute('src','src/images/backside.png')
-                card_images[secondChoice].setAttribute('src', 'src/images/backside.png')
-            },500)
+            alert("Wrong")
+         card_images[firstChoice].setAttribute('src','src/images/backside.png')
+         card_images[secondChoice].setAttribute('src', 'src/images/backside.png')
+           
         }
         chosenCard = []
         chosenCardIds = []
-        
+        resultDisplay.textContent = cardsWon.length
+        if (cardsWon.length == cards.length / 2)
+        {
+            resultDisplay.textContent = 'You Won'
+            }
+
     }
-console.log(cards)
+
     createBoard()
 
 
